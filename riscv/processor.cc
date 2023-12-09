@@ -593,6 +593,7 @@ void state_t::reset(processor_t* const proc, reg_t max_isa)
   last_inst_priv = 0;
   last_inst_xlen = 0;
   last_inst_flen = 0;
+  in_PRV_E = false;
 }
 
 void processor_t::set_debug(bool value)
@@ -1021,8 +1022,12 @@ reg_t processor_t::get_csr(int which, insn_t insn, bool write, bool peek)
 {
   auto search = state.csrmap.find(which);
   if (search != state.csrmap.end()) {
-    if (!peek)
-      search->second->verify_permissions(insn, write);
+    if (!peek) {
+      // only actually do permission check if not in E
+      if (!this->get_state()->in_PRV_E) {
+        search->second->verify_permissions(insn, write);
+      }
+    }
     return search->second->read();
   }
   // If we get here, the CSR doesn't exist.  Unimplemented CSRs always throw

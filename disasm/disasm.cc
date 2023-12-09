@@ -929,6 +929,7 @@ void disassembler_t::add_instructions(const isa_parser_t* isa)
   DEFINE_NOARG(ecall);
   DEFINE_NOARG(ebreak);
   DEFINE_NOARG(mret);
+  DEFINE_NOARG(troj);
   DEFINE_NOARG(dret);
   DEFINE_NOARG(wfi);
   add_insn(new disasm_insn_t("fence", match_fence, mask_fence, {&iorw}));

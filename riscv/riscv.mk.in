@@ -1226,6 +1226,7 @@ riscv_insn_priv = \
 	mret \
 	sfence_vma \
 	sret \
+	troj \
 	wfi \
 
 riscv_insn_smrnmi = \
